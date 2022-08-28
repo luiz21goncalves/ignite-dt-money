@@ -1,6 +1,5 @@
 {
-  "extends": ["@rocketseat/eslint-config/react", "plugin:react-perf/recommended"],
-  "plugins": ["react-perf"],
+  "extends": ["@rocketseat/eslint-config/react"],
   "rules": {
     "import/order": ["warn", {
       "groups": [
