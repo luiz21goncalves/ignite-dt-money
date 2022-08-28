@@ -1,9 +1,12 @@
 import { Header } from '../../components/Header'
 import { Summary } from '../../components/Summary'
+import { useTransactions } from '../../contexts/TransactionsContext'
 import { SearchForm } from './components/SearchForm'
 import * as S from './styles'
 
 export function Transactions() {
+  const { transactions } = useTransactions()
+
   return (
     <div>
       <Header />
@@ -14,27 +17,20 @@ export function Transactions() {
 
         <S.TransactionsTable>
           <tbody>
-            <tr>
-              <td>Desenvolvimento de site</td>
-              <td>
-                <S.PriceHighlight variant="income">
-                  R$ 12.000,00
-                </S.PriceHighlight>
-              </td>
-              <td>venda</td>
-              <td>13/04/2022</td>
-            </tr>
-
-            <tr>
-              <td>Hamburger</td>
-              <td>
-                <S.PriceHighlight variant="outcome">
-                  - R$ 59,00
-                </S.PriceHighlight>
-              </td>
-              <td>Alimentação</td>
-              <td>10/04/2022</td>
-            </tr>
+            {transactions.map((transaction) => {
+              return (
+                <tr key={transaction.id}>
+                  <td>{transaction.description}</td>
+                  <td>
+                    <S.PriceHighlight variant={transaction.type}>
+                      {transaction.price}
+                    </S.PriceHighlight>
+                  </td>
+                  <td>{transaction.category}</td>
+                  <td>{transaction.createdAt}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </S.TransactionsTable>
       </S.TransactionContainer>

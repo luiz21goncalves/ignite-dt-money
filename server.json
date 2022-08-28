@@ -1,0 +1,20 @@
+{
+  "transactions": [
+    {
+      "description": "Humburger",
+      "category": "Alimentação",
+      "type": "outcome",
+      "price": 5000,
+      "createdAt": "2022-08-28T20:46:05.937Z",
+      "id": 1
+    },
+    {
+      "description": "Desenvolvimento de site",
+      "category": "Venda",
+      "type": "income",
+      "price": 1400000,
+      "createdAt": "2022-08-28T20:46:31.936Z",
+      "id": 2
+    }
+  ]
+}
