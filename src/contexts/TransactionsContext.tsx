@@ -7,6 +7,8 @@ import {
   useState,
 } from 'react'
 
+import { api } from '../lib/axios'
+
 interface Transaction {
   id: number
   description: string
@@ -31,16 +33,13 @@ export function TransactionsProvider({ children }: TransactonsProviderProps) {
   const [transactions, setTransaction] = useState<Transaction[]>([])
 
   const fetchTransactions = useCallback(async (query?: string) => {
-    const url = new URL('http://localhost:3333/transactions')
+    const response = await api.get('/transactions', {
+      params: {
+        q: query,
+      },
+    })
 
-    if (query) {
-      url.searchParams.append('q', query)
-    }
-
-    const response = await fetch(url)
-    const data = await response.json()
-
-    setTransaction(data)
+    setTransaction(response.data)
   }, [])
 
   useEffect(() => {
