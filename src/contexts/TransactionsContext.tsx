@@ -1,6 +1,7 @@
 import {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -17,6 +18,7 @@ interface Transaction {
 
 interface TransactionsContextType {
   transactions: Transaction[]
+  fetchTransactions: (query?: string) => Promise<void>
 }
 
 interface TransactonsProviderProps {
@@ -28,14 +30,25 @@ const TransactionContext = createContext({} as TransactionsContextType)
 export function TransactionsProvider({ children }: TransactonsProviderProps) {
   const [transactions, setTransaction] = useState<Transaction[]>([])
 
-  useEffect(() => {
-    fetch('http://localhost:3333/transactions')
-      .then((response) => response.json())
-      .then((data) => setTransaction(data))
+  const fetchTransactions = useCallback(async (query?: string) => {
+    const url = new URL('http://localhost:3333/transactions')
+
+    if (query) {
+      url.searchParams.append('q', query)
+    }
+
+    const response = await fetch(url)
+    const data = await response.json()
+
+    setTransaction(data)
   }, [])
 
+  useEffect(() => {
+    fetchTransactions()
+  }, [fetchTransactions])
+
   return (
-    <TransactionContext.Provider value={{ transactions }}>
+    <TransactionContext.Provider value={{ transactions, fetchTransactions }}>
       {children}
     </TransactionContext.Provider>
   )
