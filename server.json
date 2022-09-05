@@ -15,6 +15,22 @@
       "price": 1400000,
       "createdAt": "2022-08-28T20:46:31.936Z",
       "id": 2
+    },
+    {
+      "category": "Setup",
+      "description": "Headset",
+      "price": 49000,
+      "type": "outcome",
+      "createdAt": "Mon Sep 05 2022",
+      "id": 3
+    },
+    {
+      "category": "Sorte",
+      "description": "Uma bolada",
+      "price": 10000000000,
+      "type": "income",
+      "createdAt": "Mon Sep 05 2022",
+      "id": 4
     }
   ]
 }
